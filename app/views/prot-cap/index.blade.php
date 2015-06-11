@@ -215,10 +215,13 @@
  </div>
 
 <?php $layoutNoticia = LayoutNoticia::find(1); ?>
- 	<div style="padding-left:4%;padding-right:3%;background-color: {{$layoutNoticia->background_color}}; display:<?php if ($layoutNoticia->show_main == 'none' && $layoutNoticia->show_side == 'none') {
- 		echo 'none';
- 	}else{echo 'block';} ?>"> 
- 		<table>
+ 	<div style="padding-left:4%;padding-right:3%;background-color: {{$layoutNoticia->background_color}};
+        display:<?php if ($layoutNoticia->show_main == 'none' && $layoutNoticia->show_side == 'none') {
+ 		                echo 'none';
+ 	                  }else{
+                            echo 'block';
+                      } ?>">
+ 		<table class="">
 	 		<thead>
 
 	 			@if (($layoutNoticia->show_main == 'block') && ($layoutNoticia->show_side == 'block'))
@@ -231,14 +234,14 @@
 	 				{{"<th style='width:100%'></th>"}}
 	 			@else
 	 				{{"<th style='width:100%'></th>"}}
-	 				{{"<th style='width:0%'></th>"}}	 			
+	 				{{"<th style='width:0%'></th>"}}
 	 			@endif
 
 	 		</thead>
  		   	<tbody>
  		   		<tr>
  		   			<td>
- 		   				<div class="col-md-12" style="display:{{$layoutNoticia->show_main}}">
+ 		   				<div  style="display:{{$layoutNoticia->show_main}}">
  		   					<?php $noticias = Noticia::take(1)->where('position','!=',0)->orderBy('position','asc')->get(); ?>
 
  		   					@foreach ($noticias as $noticia)
@@ -295,7 +298,7 @@
 		        		</div>
  		   			</td>
  		   			<td style="display:block">
- 		   				<div class="col-md-3" style="display:{{$layoutNoticia->show_side}}">
+ 		   				<div style="display:{{$layoutNoticia->show_side}}">
 		        			<table class="table table-hover table-condensed">
 		            			<tbody>
 
@@ -323,9 +326,9 @@
 							        							 	</p>        							
 							        						</div>
                                                             @if($midia->text != "")
-						        							    <img src="{{$midia->text}}" {{--width="100%"--}} style="height:150px">
+						        							    <img src="{{$midia->text}}" width="100%" style="height:150px">
                                                             @else
-                                                                <img src="{{$midia->link}}" {{--width="100%"--}} style="height:150px">
+                                                                <img src="{{$midia->link}}" width="100%" style="height:150px">
                                                             @endif
 						        						</td>
 						        					</tr>
@@ -402,7 +405,7 @@
  		   		</tr>
  		   	</tbody>
  		   </table>	   	
- 	</div>	      
+ 	</div>
 		
 					
 
