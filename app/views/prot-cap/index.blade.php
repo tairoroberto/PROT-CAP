@@ -123,10 +123,21 @@
 		document.getElementById("divTitle").innerHTML = title;
 		document.getElementById("divSubTitle").innerHTML = subtitle; 	
 	}
+
+    function getResolucao(){
+        var width = window.screen.availWidth;
+        var height = window.screen.availHeight;
+
+        if(width < 1400 && height < 768){
+            $('.imagemSide').height(130);
+            $('.videoSide').height(100);
+            $('.textSide').height(100);
+        }
+    }
 </script>
 
 </head>
-<body>
+<body onload="getResolucao();">
 	
 	<!--start: Header -->
 	<header class="header-nav">		
@@ -180,7 +191,7 @@
 	
 
 
- <div class="da-slider" style="background-color:{{$banner->color_background}};">
+ <div id="divBanners" class="da-slider" style="background-color:{{$banner->color_background}};">
 
  		     <!--start: Wrapper-->        	
         	 <div class="container" style="width:92%;">
@@ -215,33 +226,33 @@
  </div>
 
 <?php $layoutNoticia = LayoutNoticia::find(1); ?>
- 	<div style="padding-left:4%;padding-right:3%;background-color: {{$layoutNoticia->background_color}};
+ 	<div id="divMain" style="padding-left:4%;padding-right:3%;background-color: {{$layoutNoticia->background_color}};
         display:<?php if ($layoutNoticia->show_main == 'none' && $layoutNoticia->show_side == 'none') {
  		                echo 'none';
  	                  }else{
                             echo 'block';
                       } ?>">
- 		<table class="">
+ 		<table id="tableMain">
 	 		<thead>
 
 	 			@if (($layoutNoticia->show_main == 'block') && ($layoutNoticia->show_side == 'block'))
-	 				{{"<th style='width:".$layoutNoticia->width_main."'></th>"}}
-	 				{{"<th style='width:".$layoutNoticia->width_side."'></th>"}}
+	 				{{"<th id='thmMain' style='width:".$layoutNoticia->width_main."'></th>"}}
+	 				{{"<th id='thSide' style='width:".$layoutNoticia->width_side."'></th>"}}
 	 			@endif
 
 	 			@if (($layoutNoticia->show_main == 'none') && ($layoutNoticia->show_side == 'block'))
-	 				{{"<th style='width:0%'></th>"}}
-	 				{{"<th style='width:100%'></th>"}}
+	 				{{"<th id='thmMain' style='width:0%'></th>"}}
+	 				{{"<th id='thSide' style='width:100%'></th>"}}
 	 			@else
-	 				{{"<th style='width:100%'></th>"}}
-	 				{{"<th style='width:0%'></th>"}}
+	 				{{"<th id='thmMain' style='width:100%'></th>"}}
+	 				{{"<th id='thSide' style='width:0%'></th>"}}
 	 			@endif
 
 	 		</thead>
  		   	<tbody>
  		   		<tr>
- 		   			<td>
- 		   				<div  style="display:{{$layoutNoticia->show_main}}">
+ 		   			<td id="tdMain">
+ 		   				<div id="divTdMain" style="display:{{$layoutNoticia->show_main}}">
  		   					<?php $noticias = Noticia::take(1)->where('position','!=',0)->orderBy('position','asc')->get(); ?>
 
  		   					@foreach ($noticias as $noticia)
@@ -297,8 +308,8 @@
              			 
 		        		</div>
  		   			</td>
- 		   			<td style="display:block">
- 		   				<div style="display:{{$layoutNoticia->show_side}}">
+ 		   			<td id="tdSide" style="display:block">
+ 		   				<div id="divTdSide" style="display:{{$layoutNoticia->show_side}}">
 		        			<table class="table table-hover table-condensed">
 		            			<tbody>
 
@@ -313,7 +324,7 @@
 												if ($midia->type == "imagem") {?>
 													<tr onclick="changeMedia('{{$midia->type}}','','{{$noticia->title}}','{{$noticia->subtitle}}','{{$midia->link}}','100%','{{$layoutNoticia->height_main}}');">
 
-						        						<td>
+						        						<td style="height: 100px;">
 						        							<div style="width:100%; height:60px ;background-color: #DCDCDC;padding-top:5px;overflow: hidden;
 						        							display: <?php if($layoutNoticia->show_title_main == 'none' && $layoutNoticia->show_subtitle_main == 'none'){ echo 'none';}else{echo 'block';}?>">
 							        							 	<p style="color:{{$layoutNoticia->color_title}};font-size:18px;font-family: 'Droid Sans';padding:2px;font-weight: bold;
@@ -326,9 +337,9 @@
 							        							 	</p>        							
 							        						</div>
                                                             @if($midia->text != "")
-						        							    <img src="{{$midia->text}}" width="100%" style="height:150px">
+						        							    <img class="imagemSide" src="{{$midia->text}}" width="100%" style="height:150px">
                                                             @else
-                                                                <img src="{{$midia->link}}" width="100%" style="height:150px">
+                                                                <img class="imagemSide" src="{{$midia->link}}" width="100%" style="height:150px">
                                                             @endif
 						        						</td>
 						        					</tr>
@@ -357,10 +368,10 @@
 
                                                             @if ($midia->type_video == "YouTube")
                                                                 <?php $video = explode("=", $midia->link) ?>
-                                                                <iframe width="100%" height="150px" src="https://www.youtube.com/embed/{{$video[1]}}?rel=0&amp;controls=0&amp;showinfo=0&amp;autoplay=0&amp;loop=0&amp;end=1&amp;" frameborder="0" allowfullscreen>
+                                                                <iframe class="videoSide" width="100%" height="150px" src="https://www.youtube.com/embed/{{$video[1]}}?rel=0&amp;controls=0&amp;showinfo=0&amp;autoplay=0&amp;loop=0&amp;end=1&amp;" frameborder="0" allowfullscreen>
                                                                 </iframe>
                                                             @else
-                                                                <video width="100%" height="150px" controls="true">
+                                                                <video class="videoSide" width="100%" height="150px" controls="true">
                                                                     <source src="{{$midia->link}}" type="video/mp4">
                                                                     <source src="{{$midia->link}}" type="video/webm">
                                                                     <source src="{{$midia->link}}" type="video/ogg">
@@ -387,7 +398,7 @@
 							        							 </p>
 							        						</div>
 
-						        						<div style="width: 100%; height:150px; overflow: hidden;background-color: #F0F8FF;">
+						        						<div class="textSide" style="width: 100%; height:150px; overflow: hidden;background-color: #F0F8FF;">
 						        								<p>{{$midia->text}}</p>
 						        							</div>					        							
 						        							
