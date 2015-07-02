@@ -65,6 +65,10 @@ class DocumentoController extends BaseController {
                 $arquivo_salvo = Input::file('arquivo')->move('packages/documents/', $arquivo_name);
                 $size_file = number_format(Input::file('arquivo')->getClientSize()/1024,3,'.',',')  ." MB";
 
+                if($ext == ""){
+                    $ext = pathinfo(Input::file('arquivo')->getClientOriginalName(), PATHINFO_EXTENSION);
+                }
+
                 if($arquivo_salvo){
                     $document->name = $arquivo_name;
                     $document->title = Input::get('titulo');
@@ -87,11 +91,12 @@ class DocumentoController extends BaseController {
                 }else{
                     return Redirect::route('cadastrar-documento')
                         ->withErrors(['Não foi possível salvar Documento']);
-                }
+                }             
+                     
 
             }catch (Exception $e){
                 return Redirect::route('cadastrar-documento')
-                    ->withErrors(['Não foi possível salvar Documento']);
+                    ->withErrors(['Não foi possível salvar Documento'.$e->getMessage()]);
             }
 
         }else{
@@ -144,6 +149,10 @@ class DocumentoController extends BaseController {
                     $arquivo_name = md5(uniqid(time())) . "." . Input::file('arquivo')->guessExtension();
                     $arquivo_salvo = Input::file('arquivo')->move('packages/documents/', $arquivo_name);
                     $size_file = number_format(Input::file('arquivo')->getClientSize()/1024,3,'.',',')  ." MB";
+
+                    if($ext == ""){
+                       $ext = pathinfo(Input::file('arquivo')->getClientOriginalName(), PATHINFO_EXTENSION);
+                    }
 
                     if($arquivo_salvo){
 
@@ -259,3 +268,4 @@ class DocumentoController extends BaseController {
     }
 
 }
+				

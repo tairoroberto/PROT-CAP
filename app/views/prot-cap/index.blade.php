@@ -93,7 +93,12 @@
 </style>
 
 <script type="text/javascript">
-	function changeMedia(type,type_video,title,subtitle,media,width,height){
+     var width = null;
+     var height = null;
+
+	function changeMedia(type,type_video,title,subtitle,media,widthLayout,heightLayout){
+        getResolucao();
+
 		if (type == "imagem"){
 			document.getElementById("divMedia").innerHTML = 
 			"<div style='width:"+width+"; height:"+height+";'>"
@@ -121,18 +126,157 @@
 		}  
 
 		document.getElementById("divTitle").innerHTML = title;
-		document.getElementById("divSubTitle").innerHTML = subtitle; 	
+		document.getElementById("divSubTitle").innerHTML = subtitle;
 	}
 
-    function getResolucao(){
-        var width = window.screen.availWidth;
-        var height = window.screen.availHeight;
 
-        if(width < 1400 && height < 768){
+    function getResolucao(){
+        var w = window.screen.availWidth;
+        var h = window.screen.availHeight;
+
+
+        //alert(width +" x "+ height);
+
+
+        if((w == 800) && (h == 600) || (w <= 800) && (h <= 600)){
+
+            width = '100%';
+            height = '500px';
+
+            $('.bannerTop').height(110);
+
+            $('.divMedia').height(500);
+            $('.imagemMain').height(500);
+            $('.videoMain').height(500);
+            $('.textoMain').height(500);
+
+            $('.imagemSide').height(100);
+            $('.videoSide').height(90);
+            $('.textSide').height(70);
+
+            $('.titleSide').height(42);
+            $('.titleSide').css('padding-top',0);
+            $('.titleSide').css('overflow','hidden');
+            $('.titleSideFirst').css('font-size',12);
+            $('.titleSideSecond').css('font-size',10);
+            $('.titleSideSecond').css('padding-top',0);
+        }else if((w == 1024) && (h == 768) || (w <= 1024) && (h <= 768)){
+
+            width = '100%';
+            height = '510px';
+
+            $('.bannerTop').height(120);
+
+            $('.divMedia').height(520);
+            $('.imagemMain').height(520);
+            $('.videoMain').height(520);
+            $('.textoMain').height(520);
+
+            $('.imagemSide').height(110);
+            $('.videoSide').height(100);
+            $('.textSide').height(100);
+
+            $('.titleSide').height(50);
+            $('.titleSide').css('padding-top',0);
+            $('.titleSide').css('overflow','hidden');
+            $('.titleSideFirst').css('font-size',16);
+            $('.titleSideSecond').css('font-size',12);
+            $('.titleSideSecond').css('padding-top',0);
+        }else if((w == 1360) && (h == 768) || (w <= 1360) && (h <= 768)){
+
+            width = '100%';
+            height = '605px';
+
+            $('.bannerTop').height(140);
+
+            $('.divMedia').height(605);
+            $('.imagemMain').height(605);
+            $('.videoMain').height(605);
+            $('.textoMain').height(605);
+
+            $('.imagemSide').height(130);
+            $('.videoSide').height(110);
+            $('.textSide').height(110);
+
+            $('.titleSide').height(60);
+            $('.titleSide').css('padding-top',0);
+            $('.titleSide').css('overflow','hidden');
+            $('.titleSideFirst').css('font-size',18);
+            $('.titleSideSecond').css('font-size',14);
+            $('.titleSideSecond').css('padding-top',2);
+        }else if((w == 1366) && (h == 768) || (w <= 1366) && (h <= 768)){
+
+            width = '100%';
+            height = '610px';
+
+            $('.bannerTop').height(150);
+
+            $('.divMedia').height(610);
+            $('.imagemMain').height(610);
+            $('.videoMain').height(610);
+            $('.textoMain').height(610);
+
+            $('.imagemSide').height(135);
+            $('.videoSide').height(110);
+            $('.textSide').height(110);
+
+            $('.titleSide').height(60);
+            $('.titleSide').css('padding-top',0);
+            $('.titleSide').css('overflow','hidden');
+            $('.titleSideFirst').css('font-size',18);
+            $('.titleSideSecond').css('font-size',14);
+            $('.titleSideSecond').css('padding-top',2);
+        }else if((w == 1440) && (h == 900) || (w <= 1440) && (h <= 900)){
+
+            width = '100%';
+            height = '620px';
+
+            $('.bannerTop').height(150);
+
+            $('.divMedia').height(620);
+            $('.imagemMain').height(620);
+            $('.videoMain').height(620);
+            $('.textoMain').height(620);
+
+            $('.imagemSide').height(140);
+            $('.videoSide').height(110);
+            $('.textSide').height(110);
+
+            $('.titleSide').height(60);
+            $('.titleSide').css('padding-top',0);
+            $('.titleSide').css('overflow','hidden');
+            $('.titleSideFirst').css('font-size',18);
+            $('.titleSideSecond').css('font-size',14);
+            $('.titleSideSecond').css('padding-top',2);
+        }else if((w == 1920) && (h == 1080) || (w <= 1920) && (h <= 1080)){
+
+            width = '100%';
+            height = '680px';
+
+            $('.bannerTop').height(150);
+
+            $('.divMedia').height(680);
+            $('.imagemMain').height(680);
+            $('.videoMain').height(680);
+            $('.textoMain').height(680);
+
+            $('.imagemSide').height(150);
+            $('.videoSide').height(120);
+            $('.textSide').height(120);
+
+            $('.titleSide').height(60);
+            $('.titleSide').css('padding-top',2);
+            $('.titleSide').css('overflow','hidden');
+            $('.titleSideFirst').css('font-size',18);
+            $('.titleSideSecond').css('font-size',14);
+            $('.titleSideSecond').css('padding-top',5);
+        }
+        /*if(width < 1400 && height < 768){
+            $('.bannerTop').height(130);
             $('.imagemSide').height(130);
             $('.videoSide').height(100);
             $('.textSide').height(100);
-        }
+        }*/
     }
 </script>
 
@@ -207,7 +351,7 @@
 					        	$cont = 0;?>
 
 					       		 @foreach ($images as $image)
-					            	<img class="item <?php if($cont == 0 ){echo "active";} ?>" src="{{$image->image_path}}" width="100%" height="100%">
+					            	<img class="item <?php if($cont == 0 ){echo "active";} ?> bannerTop" src="{{$image->image_path}}" width="100%" height="100%">
 					            	<?php $cont++; ?>
 					            @endforeach
 					           
@@ -251,20 +395,20 @@
 	 		</thead>
  		   	<tbody>
  		   		<tr>
- 		   			<td id="tdMain">
+ 		   			<td class="tdMain">
  		   				<div id="divTdMain" style="display:{{$layoutNoticia->show_main}}">
  		   					<?php $noticias = Noticia::take(1)->where('position','!=',0)->orderBy('position','asc')->get(); ?>
 
  		   					@foreach ($noticias as $noticia)
 	   						<?php $midias = MidiaNoticia::where('id_noticia','=',$noticia->id)->get();?>
 								@foreach ($midias as $midia)
-									<div id="divMedia">
+									<div class="divMedia" id="divMedia">
 										@if ($midia->type == "video")
                                             @if ($midia->type_video == "YouTube")
                                                 <?php $video = explode("=", $midia->link) ?>
-                                                <iframe width="100%" height="{{$layoutNoticia->height_main}}" src="https://www.youtube.com/embed/{{$video[1]}}?rel=0&amp;controls=0&amp;showinfo=0&amp;autoplay=1&amp;playlist={{$video[1]}}" frameborder="0" allowfullscreen></iframe>
+                                                <iframe class="videoMain" width="100%" height="{{$layoutNoticia->height_main}}" src="https://www.youtube.com/embed/{{$video[1]}}?rel=0&amp;controls=0&amp;showinfo=0&amp;autoplay=1&amp;playlist={{$video[1]}}" frameborder="0" allowfullscreen></iframe>
                                             @else
-                                                <video width="100%" height="{{$layoutNoticia->height_main}}" controls="true" autoplay="true">
+                                                <video class="videoMain" width="100%" height="{{$layoutNoticia->height_main}}" controls="true" autoplay="true">
                                                     <source src="{{$midia->link}}" type="video/mp4">
                                                     <source src="{{$midia->link}}" type="video/webm">
                                                     <source src="{{$midia->link}}" type="video/ogg"
@@ -275,13 +419,13 @@
 											@if ($midia->type == "imagem")
                                                 {{-- width:{{$layoutNoticia->width_main}}; --}}
 												<div style="height:{{$layoutNoticia->height_main}};">
-													<img src="{{$midia->link}}" style="height:{{$layoutNoticia->height_main}}"
+													<img class="imagemMain" src="{{$midia->link}}" style="height:{{$layoutNoticia->height_main}}"
 													width="100%">
 												</div>											
 											@else
 												@if ($midia->type == "texto")
                                                     {{--width:{{$layoutNoticia->width_main}};--}}
-													<div style="height:{{$layoutNoticia->height_main}};overflow: hidden;">
+													<div class="textoMain" style="height:{{$layoutNoticia->height_main}};overflow: hidden;">
 														<p>{{$midia->text}}</p>
 													</div>
 												@endif
@@ -289,7 +433,7 @@
 										@endif	
 									</div>								
 								@endforeach
-								<div class="tiles primary p-t-20 p-b-20 text-black gray"
+								<div class="titleMain"
 		        				style="width:{{$layoutNoticia->width_main}}; height:90px;
                                     display: <?php if($layoutNoticia->show_title_main == 'none' && $layoutNoticia->show_title_main == 'none'){ echo 'none';}else{echo 'block';}?>">
 
@@ -325,16 +469,18 @@
 													<tr onclick="changeMedia('{{$midia->type}}','','{{$noticia->title}}','{{$noticia->subtitle}}','{{$midia->link}}','100%','{{$layoutNoticia->height_main}}');">
 
 						        						<td style="height: 100px;">
-						        							<div style="width:100%; height:60px ;background-color: #DCDCDC;padding-top:5px;overflow: hidden;
+						        							<div class="titleSide" style="width:100%; height:60px ;background-color: #DCDCDC;padding-top:5px;overflow: hidden;
 						        							display: <?php if($layoutNoticia->show_title_main == 'none' && $layoutNoticia->show_subtitle_main == 'none'){ echo 'none';}else{echo 'block';}?>">
-							        							 	<p style="color:{{$layoutNoticia->color_title}};font-size:18px;font-family: 'Droid Sans';padding:2px;font-weight: bold;
+							        							 	<p class="titleSideFirst" style="color:{{$layoutNoticia->color_title}};font-size:18px;font-family: 'Droid Sans';padding:2px;font-weight: bold;
                                                                         display:{{$layoutNoticia->show_title_main}};">
 							        							 		{{$noticia->title}}
+                                                                        <br>
+                                                                        <b class="titleSideSecond" style="color:{{$layoutNoticia->color_subtitle}};font-size:15px;font-family: 'Droid Sans';padding:2px;
+                                                                                display:{{$layoutNoticia->show_subsubtitle_main}};">
+                                                                            {{$noticia->subtitle}}
+                                                                        </b>
 							        							 	</p>
-							        							 	<p style="color:{{$layoutNoticia->color_subtitle}};font-size:15px;font-family: 'Droid Sans';padding:2px;
-                                                                        display:{{$layoutNoticia->show_subsubtitle_main}};">
-							        							 		{{$noticia->subtitle}}
-							        							 	</p>        							
+
 							        						</div>
                                                             @if($midia->text != "")
 						        							    <img class="imagemSide" src="{{$midia->text}}" width="100%" style="height:150px">
@@ -354,24 +500,26 @@
                                             @endif
 
 						        						<td>
-						        							<div style="width:100%; height:60px ;background-color: #DCDCDC; padding-top: 5px; overflow: hidden;
+						        							<div class="titleSide" style="width:100%; height:60px ;background-color: #DCDCDC; padding-top: 5px; overflow: hidden;
 						        							display: <?php if($layoutNoticia->show_title_main == 'none' && $layoutNoticia->show_subtitle_main == 'none'){ echo 'none';}else{echo 'block';}?>">
-							        							 <p style="color:{{$layoutNoticia->color_title}};font-size:18px;font-family: 'Droid Sans';padding:2px;font-weight: bold;
+							        							 <p class="titleSideFirst"  style="color:{{$layoutNoticia->color_title}};font-size:18px;font-family: 'Droid Sans';padding:2px;font-weight: bold;
                                                                      display:{{$layoutNoticia->show_title_main}};">
 							        							 	{{$noticia->title}}
+                                                                     <br>
+                                                                    <b class="titleSideSecond" style="color:{{$layoutNoticia->color_subtitle}};font-size:15px;font-family: 'Droid Sans';padding:2px;
+                                                                            display:{{$layoutNoticia->show_subtitle_main}};">
+                                                                        {{$noticia->subtitle}}
+                                                                    </b>
 							        							 </p>
-							        							 <p style="color:{{$layoutNoticia->color_subtitle}};font-size:15px;font-family: 'Droid Sans';padding:2px;
-                                                                     display:{{$layoutNoticia->show_subtitle_main}};">
-							        							 	{{$noticia->subtitle}}
-							        							 </p>
+
 							        						</div>
 
                                                             @if ($midia->type_video == "YouTube")
                                                                 <?php $video = explode("=", $midia->link) ?>
-                                                                <iframe class="videoSide" width="100%" height="150px" src="https://www.youtube.com/embed/{{$video[1]}}?rel=0&amp;controls=0&amp;showinfo=0&amp;autoplay=0&amp;loop=0&amp;end=1&amp;" frameborder="0" allowfullscreen>
+                                                                <iframe class="videoSide" width="100%" height="117px" src="https://www.youtube.com/embed/{{$video[1]}}?rel=0&amp;controls=0&amp;showinfo=0&amp;autoplay=0&amp;loop=0&amp;end=1&amp;" frameborder="0" allowfullscreen>
                                                                 </iframe>
                                                             @else
-                                                                <video class="videoSide" width="100%" height="150px" controls="true">
+                                                                <video class="videoSide" width="100%" height="117px" controls="true">
                                                                     <source src="{{$midia->link}}" type="video/mp4">
                                                                     <source src="{{$midia->link}}" type="video/webm">
                                                                     <source src="{{$midia->link}}" type="video/ogg">
@@ -386,19 +534,21 @@
 													<tr onclick="changeMedia('{{$midia->type}}','','{{$noticia->title}}','{{$noticia->subtitle}}','{{$texto}}','100%','{{$layoutNoticia->height_main}}');">
 
 						        						<td>
-						        						<div style="width:100%; height:60px ;background-color: #DCDCDC; padding-top: 5px; overflow: hidden;
+						        						<div class="titleSide" style="width:100%; height:60px ;background-color: #DCDCDC; padding-top: 5px; overflow: hidden;
 						        						display: <?php if($layoutNoticia->show_title_main == 'none' && $layoutNoticia->show_subtitle_main == 'none'){ echo 'none';}else{echo 'block';}?>">
-							        							 <p style="color:{{$layoutNoticia->color_title}};font-size:18px;font-family: 'Droid Sans';padding:2px;font-weight: bold;
+							        							 <p class="titleSideFirst" style="color:{{$layoutNoticia->color_title}};font-size:18px;font-family: 'Droid Sans';padding:2px;font-weight: bold;
                                                                      display:{{$layoutNoticia->show_title_main}};">
 							        							 	{{$noticia->title}}
+                                                                     <br>
+                                                                    <b class="titleSideSecond" style="color:{{$layoutNoticia->color_subtitle}};font-size:15px;font-family: 'Droid Sans';padding:2px;
+                                                                            display:{{$layoutNoticia->show_subtitle_main}};">
+                                                                        {{$noticia->subtitle}}
+                                                                    </b>
 							        							 </p>
-							        							 <p style="color:{{$layoutNoticia->color_subtitle}};font-size:15px;font-family: 'Droid Sans';padding:2px;
-                                                                     display:{{$layoutNoticia->show_subtitle_main}};">
-							        							 	{{$noticia->subtitle}}
-							        							 </p>
+
 							        						</div>
 
-						        						<div class="textSide" style="width: 100%; height:150px; overflow: hidden;background-color: #F0F8FF;">
+						        						<div class="textSide" style="width: 100%; height:170px; overflow: hidden;background-color: #F0F8FF;">
 						        								<p>{{$midia->text}}</p>
 						        							</div>					        							
 						        							
@@ -417,7 +567,8 @@
  		   	</tbody>
  		   </table>	   	
  	</div>
-		
+
+
 					
 
 	<!-- start: Copyright -->
